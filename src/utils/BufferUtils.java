@@ -17,8 +17,8 @@ public class BufferUtils {
         return result;
     }
 
-    public static IntBuffer creatIntBuffer(int[] array) {
-        IntBuffer result = ByteBuffer.allocateDirect(array.length << 4).order(ByteOrder.nativeOrder()).asIntBuffer();
+    public static IntBuffer createIntBuffer(int[] array) {
+        IntBuffer result = ByteBuffer.allocateDirect(array.length << 2).order(ByteOrder.nativeOrder()).asIntBuffer();
         result.put(array).flip();
         return result;
     }

@@ -1,10 +1,12 @@
 package level;
 
 import graphics.Shader;
+import graphics.Texture;
 import graphics.VertexArray;
 
 public class Level {
     private VertexArray background;
+    private Texture bgTexture;
 
     public Level() {
         float[] vertices = new float[] {
@@ -27,11 +29,12 @@ public class Level {
         };
 
         background = new VertexArray(vertices, indices, tcs);
+        bgTexture = new Texture("res/bg.png");
     }
 
     public void render() {
-        Shader.Background.enable();
+        bgTexture.bind();
         background.render();
-        Shader.Background.disable();
+        bgTexture.unbind();
     }
 }

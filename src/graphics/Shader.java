@@ -8,24 +8,18 @@ import java.util.Map;
 
 import static org.lwjgl.opengl.GL20.*;
 
-public class Shader {
+public abstract class Shader {
 
     public static final int VERTEX = 0;
     public static final int TEXTURE_COORDINATE = 1;
-
-    public static Shader Background;
 
     private final int ID;
     private boolean enabled = false;
     private Map<String, Integer> locationCache = new HashMap<>();
 
     public Shader(String vertex, String fragment) {
-
         ID = ShaderUtils.load(vertex, fragment);
-    }
-
-    public static void loadAll() {
-        Background = new Shader("shaders/bg.vert", "shaders/bg.frag");
+        bindAttributes();
     }
 
     public int getUniform(String name) {
@@ -77,5 +71,13 @@ public class Shader {
     public void disable() {
         glUseProgram(0);
         enabled = false;
+    }
+
+    // TODO: think about cleanUp method
+
+    protected abstract void bindAttributes();
+
+    protected void bindAttribute(int attribute, String variableName) {
+        glBindAttribLocation(ID, attribute,variableName);
     }
 }
